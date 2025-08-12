@@ -1,0 +1,199 @@
+# CodeBook
+
+**Author:** Jose Luis  
+**Date:** August 12, 2025  
+
+This code book describes the variables, the data, the transformations applied, and summaries calculated to produce the final tidy dataset `tidy_data.txt` in this repository.
+
+---
+
+## 1. Data Source
+
+**Original Dataset:** Human Activity Recognition Using Smartphones Dataset.  
+**Source:** [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).  
+**Description:** Data collected from the accelerometer and gyroscope of a Samsung Galaxy S II smartphone worn by 30 subjects while performing six activities: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, and LAYING.  
+
+---
+
+## 2. Study Design
+
+The dataset is split into **training** (70%) and **test** (30%) sets.  
+Each observation corresponds to data from a single subject performing a specific activity, with multiple sensor signal features extracted.  
+
+The project merges training and test sets, filters only variables containing `mean()` or `std()`, replaces activity codes with descriptive names, renames variables for clarity, groups by subject and activity, and calculates the **mean** of each measurement.
+
+---
+
+## 3. Variables in the Final Tidy Dataset
+
+The final tidy dataset **tidy_data.txt** contains:
+
+- **Observations (rows):** 180  
+(30 subjects × 6 activities)
+
+- **Variables (columns):** 68  
+(2 identifiers + 66 averaged measurement variables)
+
+---
+
+### 3.1 Identifier Variables
+
+1. **subject**  
+   - **Description:** ID of the volunteer who performed the activity.  
+   - **Type:** Integer.  
+   - **Range:** 1–30.  
+   - **Units:** N/A.
+
+2. **activity**  
+   - **Description:** Activity label performed by the subject.  
+   - **Type:** Categorical (Factor).  
+   - **Possible values:** WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING.  
+   - **Units:** N/A.
+
+---
+
+### 3.2 Measurement Variables
+
+Each variable corresponds to the **average** of the original measurement across all instances for the given subject and activity.  
+
+- **Domain prefixes**:
+  - `Time` → derived from time domain signals.
+  - `Frequency` → derived from frequency domain signals (via Fast Fourier Transform).
+
+- **Sensor type**:
+  - `Accelerometer` → linear acceleration signal (gravity + body motion).
+  - `Gyroscope` → angular velocity signal.
+
+- **Magnitude**:
+  - `Magnitude` → Euclidean norm of the 3D signals.
+
+- **Direction suffixes**:
+  - `.X`, `.Y`, `.Z` indicate axis direction in 3D space.
+
+- **Statistics**:
+  - `Mean` → mean value of measurement.
+  - `StandardDeviation` → standard deviation of measurement.
+
+- **Units**:
+  - Accelerometer: **g** (standard gravity units).
+  - Gyroscope: **rad/s** (radians per second).
+  - Magnitudes are also in g or rad/s depending on source.
+
+---
+
+### List of Measurement Variables in `tidy_data.txt`:
+
+Time domain body acceleration:
+- `TimeBodyAccelerometer.Mean.X` (**g**)  
+- `TimeBodyAccelerometer.Mean.Y` (**g**)  
+- `TimeBodyAccelerometer.Mean.Z` (**g**)  
+- `TimeBodyAccelerometer.StandardDeviation.X` (**g**)  
+- `TimeBodyAccelerometer.StandardDeviation.Y` (**g**)  
+- `TimeBodyAccelerometer.StandardDeviation.Z` (**g**)  
+
+Time domain gravity acceleration:
+- `TimeGravityAccelerometer.Mean.X` (**g**)  
+- `TimeGravityAccelerometer.Mean.Y` (**g**)  
+- `TimeGravityAccelerometer.Mean.Z` (**g**)  
+- `TimeGravityAccelerometer.StandardDeviation.X` (**g**)  
+- `TimeGravityAccelerometer.StandardDeviation.Y` (**g**)  
+- `TimeGravityAccelerometer.StandardDeviation.Z` (**g**)  
+
+Time domain body acceleration jerk (derivative of acceleration):
+- `TimeBodyAccelerometerJerk.Mean.X` (**g**)  
+- `TimeBodyAccelerometerJerk.Mean.Y` (**g**)  
+- `TimeBodyAccelerometerJerk.Mean.Z` (**g**)  
+- `TimeBodyAccelerometerJerk.StandardDeviation.X` (**g**)  
+- `TimeBodyAccelerometerJerk.StandardDeviation.Y` (**g**)  
+- `TimeBodyAccelerometerJerk.StandardDeviation.Z` (**g**)  
+
+Time domain body gyroscope:
+- `TimeBodyGyroscope.Mean.X` (**rad/s**)  
+- `TimeBodyGyroscope.Mean.Y` (**rad/s**)  
+- `TimeBodyGyroscope.Mean.Z` (**rad/s**)  
+- `TimeBodyGyroscope.StandardDeviation.X` (**rad/s**)  
+- `TimeBodyGyroscope.StandardDeviation.Y` (**rad/s**)  
+- `TimeBodyGyroscope.StandardDeviation.Z` (**rad/s**)  
+
+Time domain body gyroscope jerk:
+- `TimeBodyGyroscopeJerk.Mean.X` (**rad/s²**)  
+- `TimeBodyGyroscopeJerk.Mean.Y` (**rad/s²**)  
+- `TimeBodyGyroscopeJerk.Mean.Z` (**rad/s²**)  
+- `TimeBodyGyroscopeJerk.StandardDeviation.X` (**rad/s²**)  
+- `TimeBodyGyroscopeJerk.StandardDeviation.Y` (**rad/s²**)  
+- `TimeBodyGyroscopeJerk.StandardDeviation.Z` (**rad/s²**)  
+
+Magnitude variables:
+- `TimeBodyAccelerometerMagnitude.Mean` (**g**)  
+- `TimeBodyAccelerometerMagnitude.StandardDeviation` (**g**)  
+- `TimeGravityAccelerometerMagnitude.Mean` (**g**)  
+- `TimeGravityAccelerometerMagnitude.StandardDeviation` (**g**)  
+- `TimeBodyAccelerometerJerkMagnitude.Mean` (**g**)  
+- `TimeBodyAccelerometerJerkMagnitude.StandardDeviation` (**g**)  
+- `TimeBodyGyroscopeMagnitude.Mean` (**rad/s**)  
+- `TimeBodyGyroscopeMagnitude.StandardDeviation` (**rad/s**)  
+- `TimeBodyGyroscopeJerkMagnitude.Mean` (**rad/s²**)  
+- `TimeBodyGyroscopeJerkMagnitude.StandardDeviation` (**rad/s²**)  
+
+Frequency domain body acceleration:
+- `FrequencyBodyAccelerometer.Mean.X` (**g**)  
+- `FrequencyBodyAccelerometer.Mean.Y` (**g**)  
+- `FrequencyBodyAccelerometer.Mean.Z` (**g**)  
+- `FrequencyBodyAccelerometer.StandardDeviation.X` (**g**)  
+- `FrequencyBodyAccelerometer.StandardDeviation.Y` (**g**)  
+- `FrequencyBodyAccelerometer.StandardDeviation.Z` (**g**)  
+
+Frequency domain body acceleration jerk:
+- `FrequencyBodyAccelerometerJerk.Mean.X` (**g**)  
+- `FrequencyBodyAccelerometerJerk.Mean.Y` (**g**)  
+- `FrequencyBodyAccelerometerJerk.Mean.Z` (**g**)  
+- `FrequencyBodyAccelerometerJerk.StandardDeviation.X` (**g**)  
+- `FrequencyBodyAccelerometerJerk.StandardDeviation.Y` (**g**)  
+- `FrequencyBodyAccelerometerJerk.StandardDeviation.Z` (**g**)  
+
+Frequency domain gyroscope:
+- `FrequencyBodyGyroscope.Mean.X` (**rad/s**)  
+- `FrequencyBodyGyroscope.Mean.Y` (**rad/s**)  
+- `FrequencyBodyGyroscope.Mean.Z` (**rad/s**)  
+- `FrequencyBodyGyroscope.StandardDeviation.X` (**rad/s**)  
+- `FrequencyBodyGyroscope.StandardDeviation.Y` (**rad/s**)  
+- `FrequencyBodyGyroscope.StandardDeviation.Z` (**rad/s**)  
+
+Frequency domain magnitude variables:
+- `FrequencyBodyAccelerometerMagnitude.Mean` (**g**)  
+- `FrequencyBodyAccelerometerMagnitude.StandardDeviation` (**g**)  
+- `FrequencyBodyAccelerometerJerkMagnitude.Mean` (**g**)  
+- `FrequencyBodyAccelerometerJerkMagnitude.StandardDeviation` (**g**)  
+- `FrequencyBodyGyroscopeMagnitude.Mean` (**rad/s**)  
+- `FrequencyBodyGyroscopeMagnitude.StandardDeviation` (**rad/s**)  
+- `FrequencyBodyGyroscopeJerkMagnitude.Mean` (**rad/s²**)  
+- `FrequencyBodyGyroscopeJerkMagnitude.StandardDeviation` (**rad/s²**)  
+
+---
+
+## 4. Transformations Applied
+
+1. **Merging datasets:** Combined training and test sets into one dataset (`rbind`).
+2. **Extracting features:** Selected only variables containing `mean()` and `std()`.
+3. **Activity labeling:** Replaced numeric activity codes with descriptive labels using `activity_labels.txt`.
+4. **Variable renaming:** Applied clear, descriptive, CamelCase names and expanded abbreviations:
+   - `t` → `Time`, `f` → `Frequency`
+   - `Acc` → `Accelerometer`, `Gyro` → `Gyroscope`
+   - `Mag` → `Magnitude`
+   - `mean()` → `Mean`, `std()` → `StandardDeviation`
+   - Replace axis suffixes (`-X`, `-Y`, `-Z`) with `.X`, `.Y`, `.Z`
+5. **Aggregating:** Grouped by `subject` and `activity` and calculated the **mean** for each variable.
+6. **Output:** Saved tidy dataset to `tidy_data.txt` with `write.table(..., row.name=FALSE)`.
+
+---
+
+## 5. Units Summary
+
+| Sensor Type     | Measurement                   | Units         |
+|-----------------|--------------------------------|---------------|
+| Accelerometer   | Linear acceleration            | g (gravity)   |
+| Gyroscope       | Angular velocity               | rad/s         |
+| Gyroscope Jerk  | Angular acceleration           | rad/s²        |
+| Magnitude       | Euclidean norm of 3D signals   | same as source|
+
+---
