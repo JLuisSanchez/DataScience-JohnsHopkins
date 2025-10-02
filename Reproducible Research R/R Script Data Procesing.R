@@ -205,7 +205,7 @@ cat("\n=== ANÁLISIS POR TIPO DE DÍA ===\n")
 
 # Crear factor para tipo de día (usando datos imputados)
 activity_imputed$day_type <- ifelse(weekdays(activity_imputed$date) %in% c("Saturday", "Sunday"),
-                                    "weekend", "weekday")
+                                   "weekend", "weekday")
 activity_imputed$day_type <- as.factor(activity_imputed$day_type)
 
 # Calcular patrones de actividad por tipo de día
@@ -242,7 +242,7 @@ p4 <- ggplot(activity_patterns, aes(x = interval, y = avg_steps)) +
   geom_line(color = "blue", size = 1) +
   facet_wrap(~ day_type, ncol = 1, 
              labeller = labeller(day_type = c("weekday" = "Días de Semana", 
-                                              "weekend" = "Fines de Semana"))) +
+                                             "weekend" = "Fines de Semana"))) +
   labs(title = "Comparación de Patrones de Actividad: Días de Semana vs Fines de Semana",
        x = "Intervalo de 5 minutos",
        y = "Número Promedio de Pasos") +
